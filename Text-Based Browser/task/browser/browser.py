@@ -35,12 +35,32 @@ Twitter and Square Chief Executive Officer Jack Dorsey
 '''
 
 # write your code here
-keep_going = True
-while keep_going:
-    cite = input()
-    if cite == 'exit':
-        keep_going = False
-    elif cite == 'bloomberg.com':
-        print(bloomberg_com)
-    elif cite == 'nytimes.com':
-        print(nytimes_com)
+import os
+
+
+def process_url(url, dir):
+    contents = {"bloomberg": bloomberg_com,
+                "nytimes": nytimes_com}
+    file_name = url.strip(".com")
+    file_path = os.path.join(os.getcwd(), dir, file_name)
+    with open(file_path, "w") as f:
+        f.write(contents[file_name])
+    print(contents[file_name])
+
+
+def main():
+    keep_going = True
+    dir = os.sys.argv[1]
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+    while keep_going:
+        url = input()
+        if url == "exit":
+            keep_going = False
+        elif url == "bloomberg.com" or url == "nytimes.com":
+            process_url(url, dir)
+        else:
+            print("Error")
+
+
+main()
