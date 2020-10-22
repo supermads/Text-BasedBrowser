@@ -35,6 +35,7 @@ Twitter and Square Chief Executive Officer Jack Dorsey
 '''
 
 # write your code here
+from collections import deque
 import os
 
 
@@ -49,6 +50,7 @@ def process_url(url, dir):
 
 
 def main():
+    history = deque()
     keep_going = True
     dir = os.sys.argv[1]
     if not os.path.exists(dir):
@@ -57,8 +59,13 @@ def main():
         url = input()
         if url == "exit":
             keep_going = False
+        elif url == "back":
+            if len(history) > 1:
+                history.pop()
+                process_url(history.pop(), dir)
         elif url == "bloomberg.com" or url == "nytimes.com":
             process_url(url, dir)
+            history.append(url)
         else:
             print("Error")
 
