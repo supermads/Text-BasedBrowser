@@ -37,16 +37,19 @@ Twitter and Square Chief Executive Officer Jack Dorsey
 # write your code here
 from collections import deque
 import os
+import requests
 
 
 def process_url(url, dir):
-    contents = {"bloomberg": bloomberg_com,
-                "nytimes": nytimes_com}
+    if "http" not in url:
+        url = "https://" + url
+    r = requests.get(url)
     file_name = url.strip(".com")
+    file_name = file_name.replace("https://", "")
     file_path = os.path.join(os.getcwd(), dir, file_name)
     with open(file_path, "w") as f:
-        f.write(contents[file_name])
-    print(contents[file_name])
+        f.write(r.text)
+    print(r.text)
 
 
 def main():
@@ -63,7 +66,7 @@ def main():
             if len(history) > 1:
                 history.pop()
                 process_url(history.pop(), dir)
-        elif url == "bloomberg.com" or url == "nytimes.com":
+        elif "." in url:
             process_url(url, dir)
             history.append(url)
         else:
