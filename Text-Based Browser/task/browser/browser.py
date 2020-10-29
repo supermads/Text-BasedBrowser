@@ -2,6 +2,7 @@ from collections import deque
 import os
 import requests
 from bs4 import BeautifulSoup
+from colorama import init, Fore
 
 
 def verify_url(url):
@@ -21,7 +22,10 @@ def process_url(url, dir):
         file_name = url.strip(".com")
         file_name = file_name.replace("https://", "")
         file_path = os.path.join(os.getcwd(), dir, file_name)
-        soup = BeautifulSoup(content, 'html.parser')
+        soup = BeautifulSoup(content, "html.parser")
+        links = soup.find_all("a")
+        for link in links:
+            link.string = Fore.BLUE + link.text
         with open(file_path, "w") as f:
             f.write(soup.text)
         print(soup.text)
@@ -30,6 +34,7 @@ def process_url(url, dir):
 
 
 def main():
+    init()
     history = deque()
     keep_going = True
     dir = os.sys.argv[1]
