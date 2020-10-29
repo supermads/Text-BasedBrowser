@@ -129,13 +129,10 @@ files:
 
     TextBasedBrowserTest('browser.browser').run_tests()
   learner_created: false
-- name: browser/__init__.py
-  visible: true
-  learner_created: true
 feedback_link: https://hyperskill.org/projects/79/stages/439/implement
 status: Solved
 feedback:
   message: Congratulations! Continue on <a href="https://hyperskill.org/projects/79/stages/439/implement">JetBrains
     Academy</a>
   time: Mon, 26 Oct 2020 18:29:06 UTC
-record: -1
+record: 4
